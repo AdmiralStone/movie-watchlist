@@ -30,14 +30,32 @@ router.get('/',async(req,res) =>{
 // Remove movie from watchlist
 router.delete("/:id", async(req,res) =>{
     try{
-        const movie = await Watchlist.findById(req.params.id);
-        if(!movie) return res.status(404).json({message:"Movie not found"});
-        await movie.remove();
+        const result = await Watchlist.deleteOne({ _id: req.params.id });
+        if (result.deletedCount === 0) {
+            return res.status(404).json({ message: 'Movie not found' });
+        }
         res.json({message:"Move removed from watchlist"});
     }catch(err){
         res.status(500).json({message:err.message});
     }
 });
+
+// Toggle watched status of a movie
+router.patch("/:id/toggle-watched" , async(req,res) =>{
+    try{
+        const movie = await Watchlist.findById(req.params.id);
+        if(!movie)return res.status(404).json({message:"Movie not found"});
+
+        movie.watched = !movie.watched;
+        // movie.watchDate = new Date().toLocaleDateString();
+
+        await movie.save();
+        res.json(movie);
+
+    }catch(err){
+        res.status(500).json({message:err.message});
+    }
+})
 
 export default router;
 

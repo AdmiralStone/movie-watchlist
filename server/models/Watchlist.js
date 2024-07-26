@@ -9,7 +9,6 @@ const watchlistSchema = new mongoose.Schema({
     year:String,
     type:String,
     watched:{type:Boolean, default:false},
-    watchDate:{type:Date,default:null}
 });
 
 const Watchlist = mongoose.model('Watchlist', watchlistSchema);

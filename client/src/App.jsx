@@ -51,10 +51,29 @@ function App() {
     }
   }
 
+  const deleteMovieFromWatchlist = async (id)=>{
+    try{
+      await axios.delete(`/watchlist/${id}`);
+      fetchWatchList();
+      alert('Movie removed from watchlist!');
+    }catch(err){
+      console.error('Error removing movie from watchlist:',err);
+    }
+  }
+
+  const toggleWatchedStatus = async(id)=>{
+    try{
+      await axios.patch(`/watchlist/${id}/toggle-watched`);
+      fetchWatchList();
+    }catch(err){
+      console.error('Error toggling watched status:',err);
+    }
+  }
+
   return (
     <>
     <div className='min-h-screen bg-gray-100'>
-      <h1 className='text-3xl font bold text-center text-blue-500 p-4'> Movie Watchlist</h1>
+      <h1 className='text-3xl font bold text-center text-blue-500 p-4 bg-slate-200'> Movie Watchlist</h1>
       <SearchBar onSearch={searchMovies}></SearchBar>
       <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p4 mb-5'>
         {movies.map((movie) =>(
@@ -69,16 +88,23 @@ function App() {
 
         ))}
       </div>
-      <h2 className="text-2xl font-bold text-center text-blue-500 p-4">My Watchlist</h2>
+      <h2 className="text-2xl font-bold text-center text-blue-500 p-4">Watchlist</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
         {watchlist.map((movie) => (
           <div key={movie.imdbID} className="bg-white p-4 shadow">
             <img src={movie.poster} alt={movie.title} className="w-full h-auto" />
-            <h2 className="text-xl mt-2">{movie.title}</h2>
-            <p>{movie.year}</p>
-            <p>{movie.genre}</p>
-            <p>{movie.rating}</p>
-            <p>{movie.watched ? 'Watched' : 'Not Watched'}</p>
+            <h2 className="text-xl mt-2 text-center">{movie.title}</h2>
+            <p className='text-center'>{movie.year}</p>
+            <p className='text-center'>{movie.genre}</p>
+            <button 
+              className='bg-red-500 text-white p-2 m-2 rounded-lg'
+              onClick={()=>{deleteMovieFromWatchlist(movie._id)}}>Remove</button>
+              <button
+              className="bg-yellow-500 text-white p-2 m-2 rounded-lg"
+              onClick={() => toggleWatchedStatus(movie._id)}
+            >
+              {movie.watched ? 'Mark as Unwatched' : 'Mark as Watched'}
+            </button>
           </div>
         ))}
       </div>
