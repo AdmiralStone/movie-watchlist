@@ -72,41 +72,52 @@ function App() {
 
   return (
     <>
-    <div className='min-h-screen bg-gray-100'>
-      <h1 className='text-3xl font bold text-center text-blue-500 p-4 bg-slate-200'> Movie Watchlist</h1>
-      <SearchBar onSearch={searchMovies}></SearchBar>
-      <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p4 mb-5'>
-        {movies.map((movie) =>(
-          <div key={movie.imdbID} className='bg-white p-4 shadow'>
-            <img src={movie.Poster} alt={movie.Title} className='w-full h-80'/>
-            <h2 className='text-xl mt-2 text-center'>{movie.Title}</h2>
-            <p className='text-center'>{movie.Year}</p>
-            <button 
-              className='bg-green-500 text-white p-2 mt-2 ml-20 rounded-xl hover:bg-green-900'
-              onClick={()=>addMovieToWatchlist(movie)}>Add to Watchlist</button>
-          </div>
-
-        ))}
-      </div>
-      <h2 className="text-2xl font-bold text-center text-blue-500 p-4">Watchlist</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
-        {watchlist.map((movie) => (
-          <div key={movie.imdbID} className="bg-white p-4 shadow">
-            <img src={movie.poster} alt={movie.title} className="w-full h-auto" />
-            <h2 className="text-xl mt-2 text-center">{movie.title}</h2>
-            <p className='text-center'>{movie.year}</p>
-            <p className='text-center'>{movie.genre}</p>
-            <button 
-              className='bg-red-500 text-white p-2 m-2 rounded-lg'
-              onClick={()=>{deleteMovieFromWatchlist(movie._id)}}>Remove</button>
+     <div className="min-h-screen bg-gray-100">
+      <h1 className="text-3xl font-bold text-center text-blue-500 p-4">Movie Watchlist</h1>
+      <SearchBar onSearch={searchMovies} onAddToWatchlist={addMovieToWatchlist} />
+      <div className="max-w-6xl mx-auto">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+          {movies.map((movie) => (
+            <div key={movie.imdbID} className="bg-white p-4 shadow rounded-md flex flex-col">
+              <img src={movie.Poster} alt={movie.Title} className="w-full h-auto rounded" />
+              <h2 className="text-xl mt-2 font-semibold h-16 overflow-hidden text-ellipsis">
+                {movie.Title}
+              </h2>
+              <p className="text-gray-600">{movie.Year}</p>
               <button
-              className="bg-yellow-500 text-white p-2 m-2 rounded-lg"
-              onClick={() => toggleWatchedStatus(movie._id)}
-            >
-              {movie.watched ? 'Mark as Unwatched' : 'Mark as Watched'}
-            </button>
-          </div>
-        ))}
+                className="bg-green-500 text-white p-2 mt-auto rounded hover:bg-green-600"
+                onClick={() => addMovieToWatchlist(movie)}
+              >
+                Add to Watchlist
+              </button>
+            </div>
+          ))}
+        </div>
+        <h2 className="text-2xl font-bold text-center text-blue-500 p-4">My Watchlist</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
+          {watchlist.map((movie) => (
+            <div key={movie.imdbID} className="bg-white p-4 shadow rounded-md flex flex-col">
+              <img src={movie.poster} alt={movie.title} className="w-full h-auto rounded" />
+              <h2 className="text-xl mt-2 font-semibold h-16 overflow-hidden text-ellipsis">
+                {movie.title}
+              </h2>
+              <p className="text-gray-600">{movie.year}</p>
+              <p className="text-gray-600">{movie.genre}</p>
+              <button
+                className="bg-red-500 text-white p-2 mt-auto rounded hover:bg-red-600"
+                onClick={() => deleteMovieFromWatchlist(movie._id)}
+              >
+                Remove from Watchlist
+              </button>
+              <button
+                className="bg-yellow-500 text-white p-2 mt-2 w-full rounded hover:bg-yellow-600"
+                onClick={() => toggleWatchedStatus(movie._id)}
+              >
+                {movie.watched ? 'Mark as Unwatched' : 'Mark as Watched'}
+              </button>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
     </>
