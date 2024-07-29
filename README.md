@@ -1,6 +1,6 @@
 # Movie Watchlist
 
-This project is a Movie Watchlist web application built to help users search for movies and add them to a personal watchlist. It utilizes the OMDB API for movie data and features a React frontend, a Node.js backend, and a MongoDB database.
+This project is a Movie Watchlist web application built to help users search for movies and add them to a personal watchlist. It utilizes the OMDB API for movie data and features a React frontend, a Node.js backend, and a MongoDB database. I built this project as part of my learning journey with React. Through it, I've implemented concepts like reusable components and React Hooks (useState, useCallback), aiming to create a user-friendly and efficient application.
 
 ![Watchlist Demo](Screenshots/Watchlist.gif)
 ![Search Box](Screenshots/Searched.png)
