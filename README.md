@@ -2,6 +2,9 @@
 
 This project is a Movie Watchlist web application built to help users search for movies and add them to a personal watchlist. It utilizes the OMDB API for movie data and features a React frontend, a Node.js backend, and a MongoDB database.
 
+![Watchlist Demo](Screenshots/Watchlist.gif)
+![Search Box](Screenshots/Searched.png)
+![Watchlist](Screenshots/Movies_Added.png)
 ## Features
 
 - **Search Movies:** Search for movies by title and view details fetched from the OMDB API.
